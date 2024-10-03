@@ -16,16 +16,15 @@ function Counter() {
     // console.log(counter)
   }
 
-
   return (
     <>
-      <h1>Counter</h1>
-      <h2>Count Value: {counter}</h2>
-      <button onClick={addValue}>Add Count</button> {" "}
-      <button onClick={removeValue}>Remove Count</button>
-      <div>Final Count: {counter}</div>
+        <h1>Counter</h1>
+        <h2>Count Value: {counter}</h2>
+        <button onClick={addValue}>Add Count</button>{" "}
+        <button onClick={removeValue}>Remove Count</button>
+        <div>Final Count: {counter}</div>
     </>
-  )
+  );
 }
 
 export default Counter
