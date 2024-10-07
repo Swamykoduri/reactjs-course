@@ -1,38 +1,47 @@
-
-import React from 'react'
-
+import React from "react";
 
 function Bio() {
+  // passing functions as props
+  const handleClick = ({ name, post }) => {
+    alert(`Hello ${name}
+Your post is ${post}`);
+  };
   return (
     <>
-      <h1 className='p-4 text-4xl'>Card Component </h1>
+      <h1 className="p-4 text-4xl">Card Component </h1>
       {/* props with default value */}
-      <Card name = "Roronoa Zoro"  post = "sword master" isLoggedIn = {true}/>
-      <Card name="Naruto" post="Ninja" isLoggedIn={false}/>
+      <Card
+        name="Roronoa Zoro"
+        post="sword master"
+        isLoggedIn={true}
+        buttonClick={handleClick}
+      />
+      <Card
+        name="Naruto"
+        post="Ninja"
+        isLoggedIn={false}
+        buttonClick={handleClick}
+      />
     </>
   );
 }
 
-function Card({ name = "Naruto", post, isLoggedIn }) {
-  // props with destructuring 
-  // passing functions as props
-  const handleClick = () => {
-    alert(`Hello ${name}
-Your post is ${post}`);
-    };
+function Card({ name = "Naruto", post, isLoggedIn, buttonClick }) {
+  // props with destructuring and default value
   return (
-    <div>
+    <div className="flex flex-col items-center w-full">
       {/* props with conditional render */}
       {isLoggedIn ? (
         <p className="text-2xl font-bold underline">Welcome User</p>
       ) : (
-        <p className="text-2xl font-bold underline">Welcome Guest</p>)}
+        <p className="text-2xl font-bold underline">Welcome Guest</p>
+      )}
       <a
         href="#"
-        className="m-3 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+        className="m-3 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row justify-center md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 w-full h-48"
       >
         <img
-          className="object-fill w-full rounded-t-lg h-100 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg "
+          className="object-fill w-72 rounded-t-lg md:h-auto md:w- md:rounded-none md:rounded-s-lg h-full"
           src="https://flowbite.com/docs/images/blog/image-2.jpg"
           alt="photo"
         />
@@ -45,7 +54,9 @@ Your post is ${post}`);
           </p>
         </div>
       </a>
-      <button onClick={handleClick}>Get Information</button>
+      <button onClick={() => buttonClick({ name, post })}>
+        Get Information
+      </button>
     </div>
   );
 }
