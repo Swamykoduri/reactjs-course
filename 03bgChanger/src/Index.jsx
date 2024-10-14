@@ -2,8 +2,8 @@ import React, { useState } from "react";
 
 const Index = () => {
   const person = {
-    firstName: "Vishwas",
-    lastName: "Kumar",
+    firstName: "Swamy",
+    lastName: "Koduri",
     age: 24,
   };
 
@@ -48,6 +48,47 @@ const Index = () => {
   };
 
   const [show, setShow] = useState(true);
+
+  // Add list items
+
+  const existedItems = [
+    {
+      text: "Item 1",
+      id: "sdkl",
+    },
+    {
+      text: "Item 2",
+      id: "abcede",
+    },
+  ];
+
+  const [list, setList] = useState(existedItems);
+
+  const [message, setMessage] = useState({
+    text: "",
+    id: "",
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let newList = {
+      text: message.text,
+      id: new Date().getTime().toString(),
+    }
+    setList([...list, newList]);
+    setMessage({ text: "", id: "" });
+  }
+
+  const removeItem = (id) => {
+    setList(list.filter((item) => item.id !== id));
+  }
+
+
+  const [editItem, setEditItem] = useState({
+    id: "",
+    isEditable: false,
+  });
+
 
   return (
     <div>
@@ -96,7 +137,10 @@ const Index = () => {
                 const { id, name } = user;
 
                 return (
-                  <li key={id} className="text-white font-medium m-2">
+                  <li
+                    key={id}
+                    className="text-white font-medium m-2 hover:bg-red-500 hover:rounded-md transition-all duration-200 cursor-pointer"
+                  >
                     {name}
                     <button onClick={() => removeList(id)} className="ml-5">
                       ❌
@@ -105,6 +149,58 @@ const Index = () => {
                 );
               })}
             </ul>
+          </div>
+
+          <div className="bg-red-400 p-10 rounded-lg m-10 text-white">
+            <h1 className="text-2xl font-medium mb-6">List of items</h1>
+            <form>
+              <input
+                type="text"
+                placeholder="add your list"
+                value={message.text}
+                onChange={(e) =>
+                  setMessage({ ...message, text: e.target.value })
+                }
+                className="p-2 rounded-md outline-none focus:ring-2 focus:ring-red-600 text-orange-600"
+              />
+              {editItem.isEditable ? (
+                <button
+                  onClick={handleEdit}
+                  type="submit"
+                  className="bg-red-500 px-4 py-2 rounded-full shadow-slate-400 text-white"
+                >
+                  Edit
+                </button>
+              ) : (
+                <button
+                  onClick={handleSubmit}
+                  type="submit"
+                  className="bg-red-500 px-4 py-2 rounded-full shadow-slate-400 text-white"
+                >
+                  Add
+                </button>
+              )
+              }
+            </form>
+            <div>
+              <ul>
+                {list.map((item) => {
+                  const { text, id } = item;
+                  return (
+                    <>
+                      <li key={id} className="text-white font-medium m-2">
+                        <span className="mr-36">{text}</span>
+                        <button onClick={() => setEditItem(id)}>✏️</button>
+                        <button onClick={() => removeItem(id)}>❌</button>
+                      </li>
+                    </>
+                  );
+                })}
+              </ul>
+              {list.length === 0 && (
+                <p className="text-white font-medium m-2">List is empty</p>
+              )}
+            </div>
           </div>
         </div>
       )}

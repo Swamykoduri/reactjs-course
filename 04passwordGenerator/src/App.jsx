@@ -1,4 +1,5 @@
 import './App.css'
+import ContactForm from './ContactForm'
 import PasswordGen from './PasswordGen'
 
 function App() {
@@ -6,6 +7,7 @@ function App() {
   return (
     <>
       <PasswordGen />
+      <ContactForm />
     </>
   )
   
