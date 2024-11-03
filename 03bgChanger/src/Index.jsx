@@ -86,8 +86,19 @@ const Index = () => {
 
   const [editItem, setEditItem] = useState({
     id: "",
-    isEditable: false,
+    isEditable: true,
   });
+
+  const handleEdit = (e) => {
+    e.preventDefault();
+    let newTodo = {
+      text: e.target.value
+    }
+  }
+
+  const editText = (id) => {
+    console.log()
+  } 
 
 
   return (
@@ -151,6 +162,9 @@ const Index = () => {
             </ul>
           </div>
 
+          
+          // add and edit list of items.
+
           <div className="bg-red-400 p-10 rounded-lg m-10 text-white">
             <h1 className="text-2xl font-medium mb-6">List of items</h1>
             <form>
@@ -189,8 +203,8 @@ const Index = () => {
                   return (
                     <>
                       <li key={id} className="text-white font-medium m-2">
-                        <span className="mr-36">{text}</span>
-                        <button onClick={() => setEditItem(id)}>✏️</button>
+                        <span className="mr-36">{text}</span> 
+                        <button onClick={() => editText(id)}>✏️</button>
                         <button onClick={() => removeItem(id)}>❌</button>
                       </li>
                     </>
